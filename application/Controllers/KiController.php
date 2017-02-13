@@ -28,6 +28,9 @@ class KiController extends Controller {
 
         // Cabeçalho padrão para as requisições
         header('Access-Control-Allow-Origin:*');
+//        header('Content-Type:image/*');
+        header('Content-Type:multipart/form-data');
+//        header('Accept', 'application/json');
     }
 
 }

@@ -33,7 +33,7 @@ class LogApp {
         log_msg(' <-><-><-><-><-><-><-ENV-><-><-><-><-><-><-><-');
         log_msg(keyParam($_ENV));
         log_msg(' <-><-><-><-><-><-><-FILES-><-><-><-><-><-><->');
-        log_msg(keyParam($_FILES));
+//        log_msg(keyParam($_FILES));
         if (!empty($_SESSION)) {
             log_msg(' <-><-><-><-><-><-><-SESSION-><-><-><-><-><-><');
             log_msg(keyParam($_SESSION));

@@ -13,13 +13,39 @@ use App\Models\CardModel;
 use App\Models\CodeModel;
 use App\Models\PostHasCodeModel;
 use App\Models\PostModel;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Log\Logger;
 use Exception;
 use function log_msg;
 
 class Card extends KiController {
 
     public function index() {
+
         echo 'ok';
+    }
+
+    public function __construct(RequestInterface $request, ResponseInterface $response, Logger $logger = null) {
+        parent::__construct($request, $response, $logger);
+//        ob_start();
+//        var_export(,$v , TRUE);
+    }
+
+    public function img() {
+        $location = \WRITEPATH . 'img/';
+        $path = 'http://localhost/kodeinside.com/index/writable/img/';
+        if (isset($_FILES['file'])) {
+            $name     = randomString() . '.' . explode('/', $_FILES['file']['type'])[1]; // cria um nome randomico para o arquivo e o explode pega a extenção e concatena tudo....
+            log_msg(var_export($_FILES['file'], true));
+            $tmp_name = $_FILES['file']['tmp_name'];
+            $error    = $_FILES['file']['error'];
+            if ($error !== UPLOAD_ERR_OK) {
+                return json_encode(array('data' => array('fail' => 'fail')));
+            } elseif (move_uploaded_file($tmp_name, $location . $name)) {
+                return json_encode(array('data' => array('name' => $path . $name)));
+            }
+        }
     }
 
     public function getList() {
@@ -69,5 +95,10 @@ class Card extends KiController {
         return json_encode(array('data' => array('id' => ($idCard === TRUE ) ? $json->id : $idCard, 'success' => $success, 'error' => $error . 'Card: ' . $idCard . ' Post: ' . $postId . ' Code: ' . $codeId . ' PostCode: ' . $postCodeId)));
     }
 
+//    }
+//    public function __destruct() {
+//        $result = ob_get_clean();
+//        $path   = \WRITEPATH . 'logs/help.html';
+//        file_put_contents($path, $result);
 //    }
 }
