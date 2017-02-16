@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Site;
 
-use CodeIgniter\Model;
+use App\Models\KiModel;
 use stdClass;
+use function createLimit;
+use function createSql;
+use function createWhere;
 use function log_msg;
 
 /**
@@ -11,28 +14,26 @@ use function log_msg;
  */
 
 /**
- * Description of TaskModel
+ * Description of ArtigoModel
  *
- * Classe responsável pela administração da tabela card
- * consultas e demais operações que se relacionem com base em Card
+ * Classe responsável pela administração da tabela site_conteudos
+ * consultas e demais operações que se relacionem com base em site_conteudos
  * 
  * 
  * @author Jones Pereira 25/01/2017
  */
 class CardModel extends KiModel {
 
-    protected $table         = 'card';
+    protected $table         = 'site_conteudos';
     protected $primaryKey    = 'id';
     protected $returnType    = 'array';
     protected $allowedFields = array(
-        'title',
-        'subtitle',
-        'text',
-        'minitext',
-        'link',
-        'linktitle',
-        'info',
-        'images',
+        'site_artigo_id',
+        'titulo',
+        'descricao',
+        'codigo_fonte',
+        'nome_arquivo',
+        'ordem'
     );
 
     /**

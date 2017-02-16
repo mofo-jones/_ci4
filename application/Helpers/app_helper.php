@@ -6,14 +6,16 @@
  * @author Jones <jones.pereira@gmail.com>
  *   
  */
-function log_msg($text, $symbol = '', $file = NULL) {
-    if (is_array($text) && (count($text) > 0)) {
-        $path = (is_null($file) ? \WRITEPATH . 'logs/logSysControllers.php' : \WRITEPATH . $file );
+function log_msg($text, $symbol = '', $show = false, $file = NULL) {
+    if ($show == true) {
+        if (is_array($text) && (count($text) > 0)) {
+            $path = (is_null($file) ? \WRITEPATH . 'logs/logSysControllers.php' : \WRITEPATH . $file );
 
-        file_put_contents($path, PHP_EOL . $symbol . keyParam($text), FILE_APPEND);
+            file_put_contents($path, PHP_EOL . $symbol . keyParam($text), FILE_APPEND);
+        }
+        $path = (is_null($file) ? \WRITEPATH . 'logs/logSysControllers.php' : \WRITEPATH . $file );
+        file_put_contents($path, PHP_EOL . $symbol . $text, FILE_APPEND);
     }
-    $path = (is_null($file) ? \WRITEPATH . 'logs/logSysControllers.php' : \WRITEPATH . $file );
-    file_put_contents($path, PHP_EOL . $symbol . $text, FILE_APPEND);
 }
 
 function getPaginationList($data, $fildsSearch, $nameSpaceClass, $method = NULL) {
@@ -188,18 +190,16 @@ function createWhere($search, $columnsNames): string {
     return $where;
 }
 
-
 function randomString($length = 35) {
-	$str = "";
-	$characters = array_merge(range('A','Z'), range('a','z'), range('0','9'));
-	$max = count($characters) - 1;
-	for ($i = 0; $i < $length; $i++) {
-		$rand = mt_rand(0, $max);
-		$str .= $characters[$rand];
-	}
-	return $str;
+    $str        = "";
+    $characters = array_merge(range('A', 'Z'), range('a', 'z'), range('0', '9'));
+    $max        = count($characters) - 1;
+    for ($i = 0; $i < $length; $i++) {
+        $rand = mt_rand(0, $max);
+        $str  .= $characters[$rand];
+    }
+    return $str;
 }
-
 
 //function getMenu()
 //{
